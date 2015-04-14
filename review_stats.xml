@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#5ba4e5" >
+    <TextView
+        android:id="@+id/reviewMilesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_alignLeft="@+id/durationReviewText"
+        android:layout_below="@+id/durationReviewText"
+        android:layout_marginTop="34dp"
+        android:text="@string/distanceTextA"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/reviewMiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reviewMilesText"
+        android:layout_below="@+id/reviewMilesText"
+        android:text="@string/distanceTextB"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/durationReviewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/durationTextA"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/durationReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/durationReviewText"
+        android:layout_below="@+id/durationReviewText"
+        android:text="@string/timeTextB"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/caloriesReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/caloriesReviewText"
+        android:layout_below="@+id/caloriesReviewText"
+        android:text="@string/caloriesTextB"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/notesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/durationReviewText"
+        android:layout_marginRight="66dp"
+        android:text="@string/notes"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/caloriesReviewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/reviewMiles"
+        android:layout_below="@+id/reviewMiles"
+        android:layout_marginTop="13dp"
+        android:text="@string/caloriesTextA"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/pace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/paceText"
+        android:layout_below="@+id/paceText"
+        android:text="@string/paceTextB"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+    <CheckBox
+        android:id="@+id/shareOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/pace"
+        android:layout_below="@+id/pace"
+        android:layout_marginTop="48dp"
+        android:text="@string/SharetoKeepFitTracker"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+      <requestFocus />
+    <TextView
+        android:id="@+id/paceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/caloriesReview"
+        android:layout_below="@+id/caloriesReview"
+        android:layout_marginTop="15dp"
+        android:text="@string/paceTextA"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pace"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/durationReview" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+               <EditText
+                   android:id="@+id/reviewText"
+                   android:layout_width="177dp"
+                   android:layout_height="wrap_content"
+                   android:ems="10"
+                   android:inputType="textMultiLine|textNoSuggestions" />
+        </LinearLayout>
+    </ScrollView>
+    
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/shareOption"
+           android:layout_alignParentRight="true"
+           android:layout_below="@+id/pace"
+           android:layout_marginTop="16dp"
+           android:orientation="horizontal" >
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:layout_marginBottom="10dp"
+               android:layout_marginTop="20dp"
+               android:src="@drawable/hline" />
+       </LinearLayout>
+
+       <Button
+           android:id="@+id/saveBtn"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentLeft="true"
+           android:background="#008000"
+           android:text="@string/saveActivity"
+           android:textColor="#FFFAFA"
+           android:textSize="25sp"
+           android:textStyle="bold" />
+ 
+</RelativeLayout>
