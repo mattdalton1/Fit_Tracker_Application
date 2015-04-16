@@ -1,6 +1,6 @@
 /*
- * Author: Matthew Dalton
- * Description: Login activity
+ * Author: Matthew Dalton [C00096264]
+ * Description: Splash Screen with a sound file
  */
 package itcarlow.c00096264.fittracker;
 

@@ -1,6 +1,9 @@
 /*
- * Author: Matthew Dalton
- * Description: 
+ * Author: Matthew Dalton [C00096264]
+ * Description: The registered user can view a history of their activities. 
+ * 	Each activity has the date created, time completed, distance covered and pace. 
+ * 	When the user clicks on an activity, a note will appear describing that particular activity.
+ *
  */
 package itcarlow.c00096264.fittracker;
 

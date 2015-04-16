@@ -1,6 +1,6 @@
 /*
  * Author: Matthew Dalton
- * Description: 
+ * Description: Columns names of the SQLite Database
  */
 package itcarlow.c00096264.fittrackerServicesLayer;
 import android.provider.BaseColumns;

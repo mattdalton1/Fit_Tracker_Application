@@ -1,6 +1,8 @@
 /*
- * Author: Matthew Dalton
- * Description: SQLite Operations
+ * Author: Matthew Dalton [C00096264]
+ * Description: SQLite Operations and queries for creation of a database, opening a database,
+ * insertRegisterationInformation, insertActivityInformation, insertExtraUserInformation, etc.
+ * 
  */
 package itcarlow.c00096264.fittrackerServicesLayer;
 
@@ -56,7 +58,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 			db.execSQL("PRAGMA foreign_keys=ON;");
 	}
 	// Insert new user login data into database
-	public void putLoginInformation(DatabaseOperations dop, String name, String pass){
+	public void insertRegisterationInformation(DatabaseOperations dop, String name, String pass){
 	
 		SQLiteDatabase sql = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -68,7 +70,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 		//Log.d("Database operations", "One row inserted into User Table");	
 		sql.close();
 	}
-	public void putActivityInformation(DatabaseOperations dop, String activity_time, String activity_distance, String activity_current_pace, String activity_notes, String activity_calories_burned, int userId){
+	public void insertActivityInformation(DatabaseOperations dop, String activity_time, String activity_distance, String activity_current_pace, String activity_notes, String activity_calories_burned, int userId){
 		
 		SQLiteDatabase sql = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();
@@ -88,7 +90,7 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 		//Log.d("Database operations", "One row inserted into Activity Table");	
 		sql.close();
 	}
-	public void putExtraUserInformation(DatabaseOperations dop, double weight, int weightType, double height, int heightType, int genderType, int userId){
+	public void insertExtraUserInformation(DatabaseOperations dop, double weight, int weightType, double height, int heightType, int genderType, int userId){
 
 		SQLiteDatabase sql = dop.getWritableDatabase();
 		ContentValues cv = new ContentValues();	

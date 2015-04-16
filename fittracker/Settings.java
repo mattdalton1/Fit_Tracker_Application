@@ -1,6 +1,12 @@
 /*
- * Author: Matthew Dalton
+ * Author: Matthew Dalton [C00096264]
  * Description: 
+ * 	The user can enter his or her weight, height and gender. 	
+ * 	These values are stored in the application database. 
+ * 	The user is required to complete all the fields in order for the details to be stored. 
+ * 	The user has the option to enter the weight in pounds or in kg and the height in either centimeters or 
+ * 	in feet and inches.
+ *
  */
 package itcarlow.c00096264.fittracker;
 
@@ -56,7 +62,7 @@ public class Settings extends Activity implements View.OnClickListener{
 	}
 	private void saveDataToSQLite(){
 		try{
-			db.putExtraUserInformation(db, weightValue, weightType, heightValue, heightType, genderType, userId);
+			db.insertExtraUserInformation(db, weightValue, weightType, heightValue, heightType, genderType, userId);
 			Intent saveUserDetailsIntent = new Intent(Settings.this, MainMenu.class); // Context is the first parameter, this is used because the Activity class is a subclass of Context
 			Settings.this.startActivity(saveUserDetailsIntent);	
 		

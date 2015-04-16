@@ -1,6 +1,12 @@
 /*
- * Author: Matthew Dalton
- * Description: SQLite Operations
+ * Author: Matthew Dalton [C00096264]
+ * Description: After the user stops the exercise activity, a screen will appear presenting 
+ * 	the stats of the recent activity. These include the duration of the activity, the distance covered, 
+ * 	calories burned, etc. The user can leave a note describing the recent activity. 
+ * 	The user has the option to send these details to the website for other users to view or 
+ * 	just save it to the user’s phone.
+ *
+ * 
  */
 package itcarlow.c00096264.fittracker;
 
@@ -82,7 +88,7 @@ public class ReviewStats extends Activity implements View.OnClickListener{
 	private void saveActivityToSQLite(){
 		try{
 			notes  = activityNotes.getText().toString();
-			db.putActivityInformation(db, mIntentTime, mIntentDistance, mIntentPace, notes, mIntentCaloriesBurned, id);
+			db.insertActivityInformation(db, mIntentTime, mIntentDistance, mIntentPace, notes, mIntentCaloriesBurned, id);
 			Intent myIntent = new Intent(ReviewStats.this, MainMenu.class); 
 			ReviewStats.this.startActivity(myIntent);
 		}finally{

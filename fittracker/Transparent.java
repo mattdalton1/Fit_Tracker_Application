@@ -1,6 +1,6 @@
 /*
- * Author: Matthew Dalton
- * Description: 
+ * Author: Matthew Dalton [C00096264]
+ * Description: To create a pop up box that is displayed in the RecordActivity 
  */
 package itcarlow.c00096264.fittracker;
 

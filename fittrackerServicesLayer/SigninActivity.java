@@ -1,3 +1,8 @@
+/*
+ * Author: Matthew Dalton [C00096264]
+ * Description: MySQL Operations to retrieve and 
+ * insert user information into the external database
+ */
 package itcarlow.c00096264.fittrackerServicesLayer;
 
 import java.io.BufferedReader;
@@ -33,7 +38,7 @@ public class SigninActivity extends AsyncTask<String,Void,String> {
 	protected void onPreExecute(){}
 	protected String doInBackground(String... arg0) {
 		
-		if(byGetOrPost == 0){ //means by Get Method
+		if(byGetOrPost == 0){ // 0 means by Get Method
 			String Id = (String)arg0[0];
 			String name = (String)arg0[1];
 			String password = (String)arg0[2];

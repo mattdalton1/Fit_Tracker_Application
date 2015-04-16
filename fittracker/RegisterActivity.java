@@ -1,6 +1,10 @@
 /*
- * Author: Matthew Dalton
- * Description: 
+ * Author: Matthew Dalton [C00096264]
+ * Description: The new user will click the register button in the login screen and the register activity will begin. 
+ * 	The new user will enter a user name, password and confirmation password. 
+ * 	The new user is required to enter all fields The password must contain at least 8 characters 
+ * 	and that both passwords entered are matching. 
+ *
  */
 package itcarlow.c00096264.fittracker;
 
@@ -72,7 +76,7 @@ public class RegisterActivity extends Activity{
 	// Save data to SQLlite Database
 	private void saveDataToSQLite(String name, String pass){
 		try{
-			db.putLoginInformation(db, name, pass);
+			db.insertRegisterationInformation(db, name, pass);
 			Toast.makeText(getBaseContext(), "Please login "+user_name, Toast.LENGTH_LONG).show();
 			Intent registerIntent = new Intent(RegisterActivity.this, LoginActivity.class); // Context is the first parameter, this is used because the Activity class is a subclass of Context
 			RegisterActivity.this.startActivity(registerIntent);

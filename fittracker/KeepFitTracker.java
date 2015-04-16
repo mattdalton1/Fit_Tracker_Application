@@ -1,6 +1,6 @@
 /*
  * Author: Matthew Dalton
- * Description: To open a URL "www.keepfittracker" in Android
+ * Description: To open a URL "www.keepfittracker" 
  * 
  */
 package itcarlow.c00096264.fittracker;

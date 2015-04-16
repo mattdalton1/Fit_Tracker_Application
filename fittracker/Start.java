@@ -1,7 +1,11 @@
 /*
- * Author: Matthew Dalton
- * Description: Record an Activity. Record user activity time, distance covered,
- * calories burned and display to screen. 
+ * Author: Matthew Dalton [C00096264]
+ * Description: The user presses the start button. 
+ * 	The timer will automatically commence with the option to pause and resume activity or stop the activity. 
+ * 	The calculated distance (in miles or kilometers), calories burned will be displayed in real time. 
+ * 	The users route is displayed on the google map. 
+ * 	The user can select the type of exercise activity, currently, walking or running. 
+ * 	The user can also change the map type.
  */
 package itcarlow.c00096264.fittracker;
 import java.math.BigDecimal;
@@ -202,7 +206,7 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 			 *	Minimum distance internal between successive notification in meters
 			 *	The LocationListener object, whose onLocationChanged() method will be called for each location update
 	    	 */
-	    	//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 10, myloclist); 
+	    	// locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 10, myloclist); 
 	    	// The LocationManager is a service that listens for Network from the device. This code requests that the system call this LocationListener every 10 seconds (10000 milliseconds) provided that the user has moved at least 10 meters from their previous position.
 	    locationManager.requestLocationUpdates(provider, 8000, 5, myloclist); 
 	    	// The LocationManager is a service that listens for GPS coordinates from the device. This code requests that the system call this LocationListener every 8 seconds (8000 milliseconds) provided that the user has moved at least 5 meters from their previous position.
@@ -258,7 +262,7 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 		    		LatLng previousPoint = arrayPoints.get(0);
 		    		prevLon = previousPoint.longitude;
 		    		prevLat = previousPoint.latitude;
-		    		updateMeasurement();
+		    		calculateDistanceCovered();
 		    	}
 	    	}
     	}
@@ -446,7 +450,7 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 	private void stopMeasuring(){
 		isMeasuring = false;
 	}
-	private void updateMeasurement(){
+	private void calculateDistanceCovered(){
 		double distance = calcGeoDistance(prevLat, prevLon, currentLat, currentLon);
 		//distance = roundDecimal(distance, 3);
 		//totalDistance += distance;
@@ -571,11 +575,11 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 	}
 	private void calculateCaloriesBurned(double distance){
 		if (activityType==1){
-			String caloriesBurnedText = "" + Math.round(ActivityCalculations.WalkingCaloriesBurned(distance, weight, checkWeight));
+			String caloriesBurnedText = "" + Math.round(ActivityCalculations.walkingCaloriesBurned(distance, weight, checkWeight));
 			caloriesBurnedDisplay.setText(caloriesBurnedText);
 		}
 		else if(activityType==2){
-			String caloriesBurnedText = "" + Math.round(ActivityCalculations.RunningCaloriesBurned(distance, weight, checkWeight));
+			String caloriesBurnedText = "" + Math.round(ActivityCalculations.runningCaloriesBurned(distance, weight, checkWeight));
 			caloriesBurnedDisplay.setText(caloriesBurnedText);
 		}
 	}

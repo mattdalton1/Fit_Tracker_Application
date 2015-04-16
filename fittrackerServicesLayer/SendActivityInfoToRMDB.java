@@ -1,6 +1,6 @@
 /*
- * Author: Matthew Dalton
- * Description: MySQL Operations
+ * Author: Matthew Dalton [C00096264]
+ * Description: MySQL Operations to insert activity information in external database
  */
 package itcarlow.c00096264.fittrackerServicesLayer;
 

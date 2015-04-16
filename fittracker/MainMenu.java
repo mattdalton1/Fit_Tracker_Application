@@ -1,6 +1,13 @@
 /*
- * Author: Matthew Dalton
- * Description: The main menu activity
+ * Author: Matthew Dalton [C00096264]
+ * Description: The user can swipe left, where a navigation drawer is used (a panel that transitions in
+ *  from the left edge of the screen and displays the app’s main navigation options). 
+ *  The options for the user are 
+ *		Settings - To update the user’s details such as gender, weight and height. 
+ *		Start - To start and record an exercise activity.  
+ *		History - To view the details of all the saved activities.
+ *		KeepFitTracker - To open a browser that will direct the user to the social website.
+ *
  */
 package itcarlow.c00096264.fittracker;
 

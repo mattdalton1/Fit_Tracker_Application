@@ -1,6 +1,11 @@
 /*
- * Author: Matthew Dalton
- * Description: 
+ * Author: Matthew Dalton [C00096264]
+ * Description: The user enters his or her user name and password. 
+ * 	The application communicates with the application database to check the credentials. 
+ * 	If the input matches a name and password stored in the database, the menu screen will appear, 
+ * 	else a message will appear notifying the user that the login has failed and the user must enter 
+ * 	the correct user name and password.
+ *
  */
 package itcarlow.c00096264.fittracker;
 
