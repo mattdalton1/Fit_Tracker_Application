@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+   	android:background="#5ba4e5"
+    android:orientation="vertical" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       	android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:layout_marginTop="20dp"   
+        android:textSize="45sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+		android:shadowColor="#00ccff"
+		android:typeface="serif"
+        android:shadowRadius="1.5"
+        android:shadowDx="1"
+        android:shadowDy="1"
+		android:gravity="center" />
+    <EditText
+        android:id="@+id/userName"
+      	android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="Enter a user name"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textColorHint="#FFFFFF" >
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/userPass"
+       	android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="Enter a user password"
+        android:inputType="textPassword"
+       	android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textColorHint="#FFFFFF" />
+    <EditText
+        android:id="@+id/confirmPass"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="Re-enter password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" 
+        android:textColorHint="#FFFFFF"/>
+    <Button
+        android:id="@+id/userReg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_weight="0.12"
+        android:background="#008000"
+        android:textColor="#FFFAFA"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="@string/signUpText" />
+</LinearLayout>

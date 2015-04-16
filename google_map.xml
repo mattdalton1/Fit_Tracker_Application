@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_activity_color"
+    android:orientation="vertical"
+    tools:context=".Start">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+       >
+
+        <Button
+            android:id="@+id/stopBtn"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/resumeBtn"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/resumeBtn"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/stopbutton"
+            android:onClick="onClick"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/btnStop"
+            android:textColor="#FFF2F0"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/startBtn"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/resumeBtn"
+            android:layout_alignBottom="@+id/resumeBtn"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="21dp"
+            android:background="@drawable/startbutton"
+            android:onClick="onClick"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/btnStart"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/resumeBtn"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/startBtn"
+            android:layout_centerVertical="true"
+            android:background="@drawable/startbutton"
+            android:onClick="onClick"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/btnResume"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/pauseBtn"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/resumeBtn"
+            android:layout_alignTop="@+id/resumeBtn"
+            android:background="@drawable/pausebutton"
+            android:onClick="onClick"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/btnPause"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/the_map"
+        android:layout_width="match_parent"
+        android:layout_height="257dp"
+        android:layout_above="@+id/optionsBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/horizontalScrollView1"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
+    <itcarlow.c00096264.fittracker.Transparent
+        android:id="@+id/popup_window"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/the_map"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:padding="30dp" >
+
+        <CheckBox
+            android:id="@+id/mapTypeSatellite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/satelliteText"
+            android:textSize="15sp" 
+            android:textColor="#F5F5DC"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/mapTypeTerrain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terrainText"
+            android:textColor="#F5F5DC"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        
+    </itcarlow.c00096264.fittracker.Transparent>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            android:orientation="horizontal" >
+            
+            <TextView
+	            android:id="@+id/textTime"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/timeTextA"
+	            android:textColor="#6B6B47"
+	            android:textStyle="bold"
+	            android:layout_marginTop="15dp"
+	            android:layout_marginRight="20dp"
+	            android:layout_marginLeft="10dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+             
+             <TextView
+	            android:id="@+id/time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/timeTextB"
+	           	android:textColor="#3D1000"
+	           	android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	                 
+			 <TextView
+	            android:id="@+id/textDistance"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/distanceTextA"
+	            android:textColor="#6B6B47"
+	            android:textStyle="bold"
+	            android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+			 <TextView
+	            android:id="@+id/distance"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/caloriesTextB"
+	            android:textColor="#3D1000"
+	            android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+			 
+			<TextView
+	            android:id="@+id/textCalories"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/caloriesTextA"
+	            android:textColor="#6B6B47"
+	            android:textStyle="bold"
+	            android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	             
+            <TextView
+	            android:id="@+id/calories"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/caloriesTextB"
+	            android:textColor="#3D1000"
+	           	android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+			 
+			 <TextView
+	            android:id="@+id/textPace"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/paceTextA"
+	            android:textColor="#4747D1"
+	            android:textStyle="bold"
+	            android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+			 
+			 <TextView
+	            android:id="@+id/pace"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/paceTextB"
+	            android:textColor="#4747D1"
+	            android:layout_marginTop="15dp"
+	         	android:layout_marginRight="20dp"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+         
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ImageView
+        android:id="@+id/optionsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/relativeLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:onClick="onClick"
+        android:src="@drawable/arrowup" />
+
+    <itcarlow.c00096264.fittracker.Transparent
+        android:id="@+id/popup_windowTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/the_map"
+        android:layout_toRightOf="@+id/optionsBtn"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:padding="30dp" >
+
+        <CheckBox
+            android:id="@+id/walking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Walking"
+            android:textColor="#F5F5DC"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/running"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Running"
+            android:textColor="#F5F5DC"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </itcarlow.c00096264.fittracker.Transparent>
+
+    <TextView
+        android:id="@+id/optionsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/optionsBtn"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/optionsBtn"
+        android:text="Options"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#4747D1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/optionsText"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/hline" />
+    </LinearLayout>
+
+</RelativeLayout>

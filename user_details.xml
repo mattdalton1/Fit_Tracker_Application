@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5ba4e5"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="366dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/weightText"
+            android:layout_alignBottom="@+id/weightText"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="numberDecimal" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/weightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/heightText"
+            android:layout_marginTop="56dp"
+            android:text="@string/weightText"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/heightText"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="26dp"
+            android:text="@string/genderText"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+        <CheckBox
+            android:id="@+id/lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/in"
+            android:layout_below="@+id/weight"
+            android:layout_marginTop="19dp"
+            android:onClick="onClick"
+            android:text="@string/lbText"
+            android:textColor="#FFFFFF" />
+
+        <CheckBox
+            android:id="@+id/cm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/male"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="59dp"
+            android:layout_marginRight="32dp"
+            android:onClick="onClick"
+            android:text="@string/cm"
+            android:textColor="#FFFFFF" />
+
+        <CheckBox
+            android:id="@+id/in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/cm"
+            android:layout_alignBottom="@+id/cm"
+            android:layout_alignRight="@+id/male"
+            android:onClick="onClick"
+            android:text="@string/in"
+            android:textColor="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/heightText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/height"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:text="@string/height"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+        <CheckBox
+            android:id="@+id/kg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/lb"
+            android:layout_alignBottom="@+id/lb"
+            android:layout_alignLeft="@+id/cm"
+            android:onClick="onClick"
+            android:text="@string/kgText"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/cm"
+            android:layout_alignTop="@+id/gender"
+            android:onClick="onClick"
+            android:text="@string/femaleText"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/female"
+            android:layout_alignBottom="@+id/female"
+            android:layout_alignLeft="@+id/height"
+            android:onClick="onClick"
+            android:text="@string/maleText"
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/saveUserDetails"
+        android:text="@string/aboutYouText"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/leaveUserDetails"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/stopbutton"
+        android:onClick="onClick"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="@string/leaveSettingsSave"
+        android:textColor="#FFF2F0"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/saveUserDetails"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/startbutton"
+        android:onClick="onClick"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="@string/btnSettingsSave"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+</RelativeLayout>
