@@ -6,12 +6,25 @@
  * 	The users route is displayed on the google map. 
  * 	The user can select the type of exercise activity, currently, walking or running. 
  * 	The user can also change the map type.
+ * 
+ *  References - developer.android, available at http://developer.android.com/guide/topics/location/strategies.html
+ *  
  */
 package itcarlow.c00096264.fittracker;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +35,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -106,7 +120,7 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 	private void refXML(){
 		distanceDisplay = (TextView) findViewById(R.id.distance);
 		timeDisplay = (TextView) findViewById(R.id.time);
-		paceDisplay = (TextView) findViewById(R.id.pace);
+		//paceDisplay = (TextView) findViewById(R.id.pace);
 		caloriesBurnedDisplay = (TextView) findViewById(R.id.calories);
 		optionsText = (TextView) findViewById(R.id.optionsText);
 		startBtn = (Button) findViewById(R.id.startBtn);
@@ -208,7 +222,7 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 	    	 */
 	    	// locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 10, myloclist); 
 	    	// The LocationManager is a service that listens for Network from the device. This code requests that the system call this LocationListener every 10 seconds (10000 milliseconds) provided that the user has moved at least 10 meters from their previous position.
-	    locationManager.requestLocationUpdates(provider, 8000, 5, myloclist); 
+	    locationManager.requestLocationUpdates(provider, 8000, 0, myloclist); 
 	    	// The LocationManager is a service that listens for GPS coordinates from the device. This code requests that the system call this LocationListener every 8 seconds (8000 milliseconds) provided that the user has moved at least 5 meters from their previous position.
     }
     /*
@@ -262,7 +276,13 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 		    		LatLng previousPoint = arrayPoints.get(0);
 		    		prevLon = previousPoint.longitude;
 		    		prevLat = previousPoint.latitude;
-		    		calculateDistanceCovered();
+		    		
+		    		// Getting URL to the Google Directions API
+		    		String url = getDirectionsUrl(prevLat,prevLon,currentLat,currentLon);  
+		    		
+		    		DownloadTask downloadTask = new DownloadTask();
+                    // Start downloading json data from Google Directions API
+                    downloadTask.execute(url);
 		    	}
 	    	}
     	}
@@ -332,7 +352,7 @@ public class Start extends FragmentActivity implements View.OnClickListener{
     			Intent myIntent = new Intent(Start.this, ReviewStats.class); // Context is the first parameter, this is used because the Activity class is a subclass of Context
     			myIntent.putExtra("distanceKey", distanceDisplay.getText().toString());
     			myIntent.putExtra("timeKey", timeDisplay.getText().toString());
-    			myIntent.putExtra("paceKey", paceDisplay.getText().toString());
+    			//myIntent.putExtra("paceKey", paceDisplay.getText().toString());
     			myIntent.putExtra("caloriesBurnedKey", caloriesBurnedDisplay.getText().toString());
     			Start.this.startActivity(myIntent);	
     			break;
@@ -450,130 +470,160 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 	private void stopMeasuring(){
 		isMeasuring = false;
 	}
-	private void calculateDistanceCovered(){
-		double distance = calcGeoDistance(prevLat, prevLon, currentLat, currentLon);
+	private String getDirectionsUrl(double preLat,double preLon, double currLat, double currLon){
+		
+		String str_origin = "origin="+preLat+","+preLon;
+		String str_dest = "destination="+currLat+","+currLon;
+		
+	    // Sensor enabled
+        String sensor = "sensor=false";  
+        
+        // Building the parameters to the web service
+        String parameters = str_origin+"&"+str_dest+"&"+sensor;
+		
+        // Output format
+        String output = "json";
+        
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
+        
+        return url;
+		//double distance = calcGeoDistance(prevLat, prevLon, currentLat, currentLon);
 		//distance = roundDecimal(distance, 3);
 		//totalDistance += distance;
-		totalDistance = roundDecimal(distance,3);
-		String totalDistanceText = "" + totalDistance + " " + unitstrings[unitindex];
-		calculateCaloriesBurned(totalDistance);
-		distanceDisplay.setText(totalDistanceText);
+		//totalDistance = roundDecimal(distance,2);
+		//String totalDistanceText = "" + totalDistance + " " + unitstrings[unitindex];
+		//calculateCaloriesBurned(totalDistance);
+		//distanceDisplay.setText(totalDistanceText);
 	}
-	private double calcGeoDistance(double lat1, double lon1, double lat2, double lon2){
-		final float[] results = new float[3];
-		int MAXITERS = 20;
-        // Convert lat/long to radians
-        lat1 *= Math.PI / 180.0;
-        lat2 *= Math.PI / 180.0;
-        lon1 *= Math.PI / 180.0;
-        lon2 *= Math.PI / 180.0;
-
-        double a = 6378137.0; // WGS84 major axis
-        double b = 6356752.3142; // WGS84 semi-major axis
-        double f = (a - b) / a;
-        double aSqMinusBSqOverBSq = (a * a - b * b) / (b * b);
-
-        double L = lon2 - lon1;
-        double A = 0.0;
-        double U1 = Math.atan((1.0 - f) * Math.tan(lat1));
-        double U2 = Math.atan((1.0 - f) * Math.tan(lat2));
-
-        double cosU1 = Math.cos(U1);
-        double cosU2 = Math.cos(U2);
-        double sinU1 = Math.sin(U1);
-        double sinU2 = Math.sin(U2);
-        double cosU1cosU2 = cosU1 * cosU2;
-        double sinU1sinU2 = sinU1 * sinU2;
-
-        double sigma = 0.0;
-        double deltaSigma = 0.0;
-        double cosSqAlpha = 0.0;
-        double cos2SM = 0.0;
-        double cosSigma = 0.0;
-        double sinSigma = 0.0;
-        double cosLambda = 0.0;
-        double sinLambda = 0.0;
-
-        double lambda = L; // initial guess
-        for (int iter = 0; iter < MAXITERS; iter++) {
-            double lambdaOrig = lambda;
-            cosLambda = Math.cos(lambda);
-            sinLambda = Math.sin(lambda);
-            double t1 = cosU2 * sinLambda;
-            double t2 = cosU1 * sinU2 - sinU1 * cosU2 * cosLambda;
-            double sinSqSigma = t1 * t1 + t2 * t2; // (14)
-            sinSigma = Math.sqrt(sinSqSigma);
-            cosSigma = sinU1sinU2 + cosU1cosU2 * cosLambda; // (15)
-            sigma = Math.atan2(sinSigma, cosSigma); // (16)
-            double sinAlpha = (sinSigma == 0) ? 0.0 : cosU1cosU2
-                    * sinLambda / sinSigma; // (17)
-            cosSqAlpha = 1.0 - sinAlpha * sinAlpha;
-            cos2SM = (cosSqAlpha == 0) ? 0.0 : cosSigma - 2.0
-                    * sinU1sinU2 / cosSqAlpha; // (18)
-
-            double uSquared = cosSqAlpha * aSqMinusBSqOverBSq; // defn
-            A = 1
-                    + (uSquared / 16384.0)
-                    * // (3)
-                    (4096.0 + uSquared
-                            * (-768 + uSquared
-                                    * (320.0 - 175.0 * uSquared)));
-            double B = (uSquared / 1024.0) * // (4)
-                    (256.0 + uSquared
-                            * (-128.0 + uSquared
-                                    * (74.0 - 47.0 * uSquared)));
-            double C = (f / 16.0) * cosSqAlpha
-                    * (4.0 + f * (4.0 - 3.0 * cosSqAlpha)); // (10)
-            double cos2SMSq = cos2SM * cos2SM;
-            deltaSigma = B
-                    * sinSigma
-                    * // (6)
-                    (cos2SM + (B / 4.0)
-                            * (cosSigma * (-1.0 + 2.0 * cos2SMSq) - (B / 6.0)
-                                    * cos2SM
-                                    * (-3.0 + 4.0 * sinSigma * sinSigma)
-                                    * (-3.0 + 4.0 * cos2SMSq)));
-            lambda = L
-                    + (1.0 - C)
-                    * f
-                    * sinAlpha
-                    * (sigma + C
-                            * sinSigma
-                            * (cos2SM + C * cosSigma
-                                    * (-1.0 + 2.0 * cos2SM * cos2SM))); // (11)
-
-            double delta = (lambda - lambdaOrig) / lambda;
-            if (Math.abs(delta) < 1.0e-12) {
-                break;
+	/** A method to download json data from url */
+	private String downloadUrl(String strUrl) throws IOException{
+		String data ="";
+		InputStream iStream =null;
+		HttpURLConnection urlConnection = null;
+	    
+		try{
+			URL url = new URL(strUrl);
+			// Creating an http connection to communicate with url 
+            urlConnection = (HttpURLConnection) url.openConnection();
+            // Connecting to url 
+            urlConnection.connect();
+            // Reading data from url 
+            iStream = urlConnection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+            StringBuffer sb  = new StringBuffer();
+            String line = "";
+            while( ( line = br.readLine())  != null){
+                    sb.append(line);
             }
-        }
-
-        float distance = (float) (b * A * (sigma - deltaSigma));
-        results[0] = distance;
-        /*
-        if (results.length > 1) {
-            float initialBearing = (float) Math.atan2(
-                    cosU2 * sinLambda, cosU1 * sinU2 - sinU1 * cosU2
-                            * cosLambda);
-            initialBearing *= 180.0 / Math.PI;
-            results[1] = initialBearing;
-            if (results.length > 2) {
-                float finalBearing = (float) Math.atan2(cosU1
-                        * sinLambda, -sinU1 * cosU2 + cosU1 * sinU2
-                        * cosLambda);
-                finalBearing *= 180.0 / Math.PI;
-                results[2] = finalBearing;
+            data = sb.toString();
+            br.close();
+		}catch(Exception e){
+            Log.d("Exception while downloading url", e.toString());
+		}finally{
+            iStream.close();
+            urlConnection.disconnect();
+		}
+		 return data;
+	}
+	   // Fetches data from url passed
+    private class DownloadTask extends AsyncTask<String, Void, String>{  
+    	// Downloading data in non-ui thread
+        @Override
+        protected String doInBackground(String... url) {
+        	// For storing data from web service
+            String data = "";
+            try{
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
+            }catch(Exception e){
+                Log.d("Background Task",e.toString());
             }
+            return data;        
         }
-        */
-        return results[0] * 0.001;
-	}
-	public double roundDecimal(double value, int decimalPlace){
-		BigDecimal bd = new BigDecimal(value);
-		bd = bd.setScale(decimalPlace, 6);
-		return bd.doubleValue();
-	}
-	private void calculateCaloriesBurned(double distance){
+        // Executes in UI thread, after the execution of
+        // doInBackground()
+        @Override
+        protected void onPostExecute(String result) {            
+            super.onPostExecute(result);            
+            
+            ParserTask parserTask = new ParserTask();
+            
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+                
+        }        
+        
+    }
+    /** A class to parse the Google Places in JSON format */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
+
+		@Override
+		protected List<List<HashMap<String, String>>> doInBackground(
+				String... jsonData) {
+			 	
+				JSONObject jObject;    
+	            List<List<HashMap<String, String>>> routes = null;     
+	            try{
+	                jObject = new JSONObject(jsonData[0]);
+	                DirectionsJSONParser parser = new DirectionsJSONParser();
+	                
+	                // Starts parsing data
+	                routes = parser.parse(jObject);    
+	            }catch(Exception e){
+	                e.printStackTrace();
+	            }
+	            return routes;
+		}
+		protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions lineOptions = null;
+            MarkerOptions markerOptions = new MarkerOptions();
+            String distance = "";
+            String duration = "";
+            
+            if(result.size()<1){
+                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Traversing through all the routes
+            for(int i=0;i<result.size();i++){
+                points = new ArrayList<LatLng>();
+                lineOptions = new PolylineOptions();
+                
+                // Fetching i-th route
+                List<HashMap<String, String>> path = result.get(i);
+                
+                // Fetching all the points in i-th route
+                for(int j=0;j<path.size();j++){
+                    HashMap<String,String> point = path.get(j);    
+                    
+                    if(j==0){    // Get distance from the list
+                        distance = (String)point.get("distance");                        
+                        continue;
+                    }else if(j==1){ // Get duration from the list
+                        duration = (String)point.get("duration");
+                        continue;   
+                    }
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);    
+                    
+                    points.add(position);      
+                }
+             // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points);
+                lineOptions.width(2);
+                lineOptions.color(Color.RED);  
+           }
+           // calculateCaloriesBurned(distance);
+           distanceDisplay.setText(distance);
+           // Drawing polyline in the Google Map for the i-th route
+           googleMap.addPolyline(lineOptions);        
+       }
+    }
+	private void calculateCaloriesBurned(String strDistance){
+		double distance = Double.parseDouble(strDistance);
 		if (activityType==1){
 			String caloriesBurnedText = "" + Math.round(ActivityCalculations.walkingCaloriesBurned(distance, weight, checkWeight));
 			caloriesBurnedDisplay.setText(caloriesBurnedText);
@@ -607,4 +657,5 @@ public class Start extends FragmentActivity implements View.OnClickListener{
 		stopListening();
 		super.onDestroy();
 	}
+    
 }

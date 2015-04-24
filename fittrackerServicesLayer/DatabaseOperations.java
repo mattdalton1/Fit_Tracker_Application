@@ -25,6 +25,9 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 	
 	public String Create_QUERY_ACTIVITY = "CREATE TABLE "+TableInfo.TABLE_ACTIVITY+" ("+TableInfo.COL_ACTIVITY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+TableInfo.COL_ACTIVITY_DATE_CREATED+" DATE,"+TableInfo.COL_ACIVITY_TIME+" TEXT,"+TableInfo.COL_ACIVITY_DISTANCE+" TEXT,"+TableInfo.COL_ACTIVITY_CURRENT_PACE+" TEXT,"+TableInfo.COL_ACTIVITY_NOTES+" TEXT,"+TableInfo.COL_ACTIVITY_CALORIES_BURNED+" TEXT,"+TableInfo.COL_USER_FK+" INTEGER NOT NULL ,FOREIGN KEY ("+TableInfo.COL_USER_FK+") REFERENCES "+TableInfo.TABLE_USER+" ("+TableInfo.COL_USER_ID+"));";
 	
+	ContentValues cv = new ContentValues();
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+	
 	// Create Database
 	public DatabaseOperations(Context context) {
 		super(context, TableInfo.DATABASE_NAME, null, database_version);
@@ -61,8 +64,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 	public void insertRegisterationInformation(DatabaseOperations dop, String name, String pass){
 	
 		SQLiteDatabase sql = dop.getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		
 		cv.put(TableInfo.COL_USER_NAME, name);
 		cv.put(TableInfo.COL_USER_PASS, pass);
 		// Insert into table
@@ -73,9 +74,6 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 	public void insertActivityInformation(DatabaseOperations dop, String activity_time, String activity_distance, String activity_current_pace, String activity_notes, String activity_calories_burned, int userId){
 		
 		SQLiteDatabase sql = dop.getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		
 		cv.put(TableInfo.COL_ACTIVITY_DATE_CREATED, dateFormat.format(new Date()));
 		cv.put(TableInfo.COL_ACIVITY_TIME, activity_time);
 		cv.put(TableInfo.COL_ACIVITY_DISTANCE, activity_distance);
@@ -93,12 +91,12 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 	public void insertExtraUserInformation(DatabaseOperations dop, double weight, int weightType, double height, int heightType, int genderType, int userId){
 
 		SQLiteDatabase sql = dop.getWritableDatabase();
-		ContentValues cv = new ContentValues();	
 		cv.put(TableInfo.COL_USER_WEIGHT, weight);
 		cv.put(TableInfo.COL_USER_CHECK_WEIGHT, weightType);
 		cv.put(TableInfo.COL_USER_HEIGHT, height);
 		cv.put(TableInfo.COL_USER_CHECK_HEIGHT, heightType);
 		cv.put(TableInfo.COL_USER_GENDER, genderType);
+		
 		long k = sql.update(TableInfo.TABLE_USER, cv, TableInfo.COL_USER_ID + "=" + userId, null);
 		sql.close();
 	}
@@ -110,18 +108,18 @@ public class DatabaseOperations extends SQLiteOpenHelper{
 		return mCursor;		
 	}	
 	public Cursor getActivityInformation(DatabaseOperations dop, int id){
-		SQLiteDatabase SQL = dop.getReadableDatabase();
+		SQLiteDatabase sql = dop.getReadableDatabase();
 		String selectQuery = "SELECT _id, activity_date_created, activity_time, activity_distance, activity_current_pace, activity_notes, activity_calories_burned, user_fk FROM userActivity WHERE user_fk ='"+id+"'";
-		Cursor mCursor = SQL.rawQuery(selectQuery, null);
+		Cursor mCursor = sql.rawQuery(selectQuery, null);
 		if(mCursor !=null){
 			mCursor.moveToFirst();
 		}
 		return mCursor;						
 	}
 	public Cursor getUserDetails(DatabaseOperations dop, int id){
-		SQLiteDatabase SQL = dop.getReadableDatabase();
+		SQLiteDatabase sql = dop.getReadableDatabase();
 		String selectQuery = "SELECT user_id, user_weight, user_check_weight, user_height, user_check_height FROM user WHERE user_id ='"+id+"'";
-		Cursor mCursor = SQL.rawQuery(selectQuery, null);
+		Cursor mCursor = sql.rawQuery(selectQuery, null);
 		if(mCursor !=null){
 			mCursor.moveToFirst();
 		}

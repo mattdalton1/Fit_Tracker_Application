@@ -8,6 +8,8 @@
  *		History - To view the details of all the saved activities.
  *		KeepFitTracker - To open a browser that will direct the user to the social website.
  *
+ *	References: 
+ *		RAJ AMAL, learn2crack, available at http://www.learn2crack.com/2014/06/android-sliding-navigation-drawer-example.html
  */
 package itcarlow.c00096264.fittracker;
 

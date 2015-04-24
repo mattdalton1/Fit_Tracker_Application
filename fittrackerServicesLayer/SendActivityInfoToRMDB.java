@@ -30,7 +30,8 @@ public class SendActivityInfoToRMDB extends AsyncTask<String,Void,String> {
 			String pace = (String)arg0[2];
 			String caloriesBurned = (String)arg0[3];
 			String timeCompleted = (String)arg0[4];
-			String nameOfUser =(String)arg0[5];	
+			String dateOfActivity = (String)arg0[5];
+			String nameOfUser =(String)arg0[6];	
 			try{
 				String link="http://www.keepfittracker.com/includes/insertActivityInfo.php";	            
 				String data  = URLEncoder.encode("notes", "UTF-8") 
@@ -44,9 +45,11 @@ public class SendActivityInfoToRMDB extends AsyncTask<String,Void,String> {
 		    	        + "=" + URLEncoder.encode(caloriesBurned, "UTF-8");
 		        data += "&" + URLEncoder.encode("timeCompleted", "UTF-8") 
 		    	        + "=" + URLEncoder.encode(timeCompleted, "UTF-8");
+		        data += "&" + URLEncoder.encode("dateOfActivity", "UTF-8") 
+		    	        + "=" + URLEncoder.encode(dateOfActivity, "UTF-8");
 		        data += "&" + URLEncoder.encode("nameOfUser", "UTF-8") 
 		    	        + "=" + URLEncoder.encode(nameOfUser, "UTF-8");
-		          
+		                  
 		        URL url = new URL(link);
 		        URLConnection conn = url.openConnection(); 
 		        conn.setDoOutput(true); 

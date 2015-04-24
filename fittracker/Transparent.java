@@ -1,6 +1,10 @@
 /*
  * Author: Matthew Dalton [C00096264]
  * Description: To create a pop up box that is displayed in the RecordActivity 
+ * 
+ * Source: Keerthy, Android Codes, 
+ * 	available at http://android-codes-examples.blogspot.ie/2011/04/animated-customized-popup-transparent.html
+ *  
  */
 package itcarlow.c00096264.fittracker;
 
